@@ -113,6 +113,7 @@ app.get('/short/new/*',function(req,res) {
           var newObj = {originalUrl:item.originalUrl,shortUrl:item.shortUrl};
           // display the url
           res.send(newObj);
+          db.close();
 
         // if the url does not exist
         } else {
