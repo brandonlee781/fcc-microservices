@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>FreeCodeCamp Microservices</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+  <style>
+      body {
+          margin: 75px;
+      }
+      .wrapper {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+      }
+      .cards {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;;
+        align-items: center;
+        margin-top: 75px;
+      }
+      .card {
+        width: 250px;
+        height: 250px;
+        margin: 10px;
+      }
+      .card-block {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+      }
+  </style>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>FreeCodeCamp Back-End API micro services</h1>
+    <div class="cards">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Timestamp</h4>
+          <p class="card-text">Takes date string or Unix date code and returns it and the other.</p>
+          <a href="/date" class="btn btn-primary">Go to instructions</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Who am I?</h4>
+          <p class="card-text">Returns for the user information about their browser and computer</p>
+          <a href="#" class="btn btn-primary">Go to instructions</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">URL shortener</h4>
+          <p class="card-text">Returns a shorter URL or redirects if given a shortned URL</p>
+          <a href="#" class="btn btn-primary">Go to instructions</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Image Search</h4>
+          <p class="card-text">Users can search for images and get a list of images urls.</p>
+          <a href="#" class="btn btn-primary">Go to instructions</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Created by Brandon Lee
+
+    </footer>
+  </div><!-- end container-fluid -->
+</body>
+</html>
