@@ -28,7 +28,7 @@
       </ol>
   </blockquote>
   <h4>Example:</h4>
-  <code>https://bl781-ms.herokuapp.com/imagesearch/battle of britain</code>
+  <code>https://bl781-ms.herokuapp.com/imagesearch/star wars</code>
   <p>
     Adding <code>?offset=</code> and a number to the end of the url will paginate through results
   </p>
@@ -40,6 +40,26 @@
       source: "https://en.wikipedia.org/wiki/Battle_of_Britain"
     },
     ...
+  </pre>
+  <h4>Example:</h4>
+  <code>https://bl781-ms.herokuapps.com/latest/imagesearch</code>
+  <h4>Output:</h4>
+  <pre>
+    [
+      {
+        term: "star wars",
+        time: "2016-11-05T22:50:24.295Z"
+      },
+      {
+        term: "star wars",
+        time: "2016-11-05T22:50:56.873Z"
+      },
+      {
+        term: "yoda",
+        time: "2016-11-05T22:51:24.721Z"
+      },
+      ...
+    ]
   </pre>
 
 </body>
