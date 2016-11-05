@@ -1,4 +1,4 @@
-var http = require('http');
+var https = require('https');
 var MongoClient = require('mongodb').MongoClient;
 var express = require('express');
 var assert = require('assert');
@@ -184,54 +184,70 @@ app.get('/imagesearch/:searchterm?',function(req,res) {
   var searchTerm = req.params.searchterm;
   var count = 10;
   var start;
+  var page = req.query.offset || 1;
   var doc = {
     term: searchTerm,
     time: new Date()
   }
 
-  if (req.query.offset) {
-    start = 10 + (req.query.offset - 1);
-  } else {
-    start = 1;
-  };
+  // Removed while Google CSE limit is exceeded
+  // if (req.query.offset) {
+  //   start = 10 + (req.query.offset - 1);
+  // } else {
+  //   start = 1;
+  // };
+  // var cse = {
+  //   uri: 'https://www.googleapis.com/customsearch/v1',
+  //   json: true,
+  //   method: 'GET'.
+  //   qs: {
+  //     keys: process.env.CSE_KEY,
+  //     num: count,
+  //     start: start,
+  //     cx: process.env.CSE_ID,
+  //     searchtype: 'image',
+  //     q: searchTerm
+  //   }
+  // }
 
-  var restUrl =
-    'https://www.googleapis.com/customsearch/'+
-        'v1?key='+ process.env.CSE_KEY +
-        '&num=' + count +
-        '&start=' + start +
-        '&cx='+ process.env.CSE_ID +
-        '&searchtype=image' +
-        '&q='+ searchTerm;
   var options = {
-    uri: restUrl,
-    json: true
+    uri: 'https://api.imgur.com/3/gallery/search/top/' + page,
+    json: true,
+    method: 'GET',
+    qs: {
+      q: searchTerm
+    },
+    headers: {
+      "Authorization":"Client-ID " + process.env.IMGUR_ID
+    }
   }
+
+
   MongoClient.connect(dbLocation,function(err,db) {
     var collection = db.collection('search-history');
 
-    collection.insertOne(doc);
-    db.close();
+    collection.insertOne(doc,function(err,result) {
+      db.close();
+    });
+
   })
 
   request(options,function(err,result,body) {
-    var images = [];
-    body.items.forEach(function(val) {
-      if (val.pagemap.cse_image) {
+    var results = [];
+    if (body.data.length === 0) {
+      res.send('There were no results that match your request.')
+    } else {
+      body.data.forEach(function(data) {
         var obj = {
-          image: val.pagemap.cse_image[0].src,
-          text: val.snippet,
-          source: val.link
+          image: data.link,
+          text: data.title,
+          source: 'https://www.imgur.com/gallery/' + data.id
         }
-        images.push(obj);
-      } else {
-        return;
-      }
-    })
-    res.send(images);
-    res.end();
+        results.push(obj);
+      })
+      res.send(results);
+    }
   })
-
 
 })
 
