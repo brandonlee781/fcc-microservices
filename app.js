@@ -164,6 +164,77 @@ app.get('/short/*',function(req,res) {
   })
 })
 
+//-------------------- Image Search -----------------------//
+app.get('/imagesearch',function(req,res) {
+  res.sendFile(path.join(__dirname,'/pages/imagesearch.html'));
+})
+
+app.get('/latest/imagesearch/',function(req,res) {
+  MongoClient.connect(dbLocation,function(err,db) {
+    var collection = db.collection('search-history');
+
+    collection.find({},{'_id': false}).toArray(function(err,data) {
+      res.send(data);
+      db.close();
+    });
+  })
+})
+
+app.get('/imagesearch/:searchterm?',function(req,res) {
+  var searchTerm = req.params.searchterm;
+  var count = 10;
+  var start;
+  var doc = {
+    term: searchTerm,
+    time: new Date()
+  }
+
+  if (req.query.offset) {
+    start = 10 + (req.query.offset - 1);
+  } else {
+    start = 1;
+  };
+
+  var restUrl =
+    'https://www.googleapis.com/customsearch/'+
+        'v1?key='+ process.env.CSE_KEY +
+        '&num=' + count +
+        '&start=' + start +
+        '&cx='+ process.env.CSE_ID +
+        '&searchtype=image' +
+        '&q='+ searchTerm;
+  var options = {
+    uri: restUrl,
+    json: true
+  }
+  MongoClient.connect(dbLocation,function(err,db) {
+    var collection = db.collection('search-history');
+
+    collection.insertOne(doc);
+    db.close();
+  })
+
+  request(options,function(err,result,body) {
+    var images = [];
+    body.items.forEach(function(val) {
+      if (val.pagemap.cse_image) {
+        var obj = {
+          image: val.pagemap.cse_image[0].src,
+          text: val.snippet,
+          source: val.link
+        }
+        images.push(obj);
+      } else {
+        return;
+      }
+    })
+    res.send(images);
+    res.end();
+  })
+
+
+})
+
 
 app.listen(port,function() {
   console.log('Server started on port ' + port);

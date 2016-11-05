@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>FreeCodeCamp URL Image Search Microservice</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <style>
+      body {
+          margin: 75px;
+      }
+  </style>
+
+</head>
+
+<body>
+  <h1>API Project - Image Search Microservice</h1>
+  <h3>User Stories:</h3>
+  <blockquote>
+      <ol>
+          <li>I can get the image URLs, alt text and page urls for a set of images relating to a given search string.</li>
+          <li>I can paginate through the responses by adding a ?offset=2 parameter to the URL.</li>
+          <li>I can get a list of the most recently submitted search strings.</li>
+      </ol>
+  </blockquote>
+  <h4>Example:</h4>
+  <code>https://bl781-ms.herokuapp.com/imagesearch/battle of britain</code>
+  <p>
+    Adding <code>?offset=</code> and a number to the end of the url will paginate through results
+  </p>
+  <h4>Output:</h4>
+  <pre>
+    {
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Battle_of_britain_air_observer.jpg/300px-Battle_of_britain_air_observer.jpg",
+      text: "The Battle of Britain was a combat of the Second World War, when the Royal Air Force ("RAF") defended the United Kingdom ("UK") against the German Air ...",
+      source: "https://en.wikipedia.org/wiki/Battle_of_Britain"
+    },
+    ...
+  </pre>
+
+</body>
+</html>
