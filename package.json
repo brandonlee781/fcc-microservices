@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/brandonlee781/fcc-microservices#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "moment": "^2.15.2",
     "mongodb": "^2.2.11",
+    "multer": "^1.2.0",
     "request": "^2.78.0"
   }
 }

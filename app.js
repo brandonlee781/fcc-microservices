@@ -7,11 +7,15 @@ var path = require('path');
 var dotenv = require('dotenv').config();
 var request = require('request');
 var moment = require('moment');
+var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var getMonth = require('./utils/getMonth.js');
 var validUrl = new RegExp(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/);
+var upload = multer({ dest: 'uploads/' });
 
 var app = express();
+app.use(bodyParser.json());
 
 var dbLocation = process.env.MONGODB_URI;
 var port = process.env.PORT || 8080;
@@ -190,6 +194,18 @@ app.get('/imagesearch/:searchterm?',function(req,res) {
     time: new Date()
   }
 
+  var options = {
+    uri: 'https://api.imgur.com/3/gallery/search/top/' + page,
+    json: true,
+    method: 'GET',
+    qs: {
+      q: searchTerm
+    },
+    headers: {
+      "Authorization":"Client-ID " + process.env.IMGUR_ID
+    }
+  }
+
   // Removed while Google CSE limit is exceeded
   // if (req.query.offset) {
   //   start = 10 + (req.query.offset - 1);
@@ -210,17 +226,6 @@ app.get('/imagesearch/:searchterm?',function(req,res) {
   //   }
   // }
 
-  var options = {
-    uri: 'https://api.imgur.com/3/gallery/search/top/' + page,
-    json: true,
-    method: 'GET',
-    qs: {
-      q: searchTerm
-    },
-    headers: {
-      "Authorization":"Client-ID " + process.env.IMGUR_ID
-    }
-  }
 
 
   MongoClient.connect(dbLocation,function(err,db) {
@@ -251,6 +256,10 @@ app.get('/imagesearch/:searchterm?',function(req,res) {
 
 })
 
+//-------------------- Upload Metadata -----------------------//
+app.get('/upload', function(req,res) {
+  res.sendFile(path.join(__dirname, '/pages/upload.html'));
+});
 
 app.listen(port,function() {
   console.log('Server started on port ' + port);

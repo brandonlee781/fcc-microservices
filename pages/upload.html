@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>FreeCodeCamp URL Image Search Microservice</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <style>
+      body {
+          margin: 75px;
+      }
+  </style>
+
+</head>
+
+<body>
+  <h1>API Project - File Metadata Microservice</h1>
+  <h3>User Stories:</h3>
+  <blockquote>
+      <ol>
+          <li>I can submit a FormData object that includes a file upload.</li>
+          <li>When I submit something, I will receive the file size in bytes within the JSON response.</li>
+      </ol>
+  </blockquote>
+  <form method="POST" enctype="multipart/form-data" action="/">
+    <div class="form-group">
+      <label for="exampleInputFile">File input</label>
+      <input type="file" class="form-control-file" name="upl" aria-describedby="fileHelp">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</body>
+</html>
