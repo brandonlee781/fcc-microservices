@@ -261,6 +261,14 @@ app.get('/upload', function(req,res) {
   res.sendFile(path.join(__dirname, '/pages/upload.html'));
 });
 
+app.post('/', multer({ dest: './uploads/'}).single('upl'), function(req,res){
+	var result = {
+    size: req.file.size
+  }
+	res.send(result);
+});
+
+
 app.listen(port,function() {
   console.log('Server started on port ' + port);
 });
